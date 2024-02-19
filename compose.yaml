@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  elasticsearch:
+    image: bitnami/elasticsearch
+    environment:
+      - ELASTIC_PASSWORD=secret
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  kibana:
+    image: bitnami/kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+#  logstash:
+#    image: bitnami/logstash
+#    environment:
+#      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+#    volumes:
+#      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+#      - ./logstash/pipeline:/usr/share/logstash/pipeline
+#    ports:
+#      - "5000:5000"
+#    depends_on:
+#      - elasticsearch
+  pg11:
+    image: postgres
+    restart: always
+    ports:
+      - "5212:5432"
+    environment:
+      POSTGRES_DB: crypto_app_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mamamama

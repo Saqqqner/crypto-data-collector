@@ -1,0 +1,41 @@
+coinmarketcap:
+  api:
+    scheduler:
+      pollingIntervalMillis: 12222
+
+    url:
+      listings:
+        latest:
+
+
+    key: 
+    rateLimit:
+      requestLimit: 30
+      timeout:
+        seconds: 10
+      refreshPeriod:
+        minutes: 1
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5212/crypto_app_db
+    username: postgres
+    password: mamamama
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cache:
+    type: CAFFEINE
+jwt:
+  secret: Secret
+  lifetime: 10m
